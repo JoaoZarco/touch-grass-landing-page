@@ -303,6 +303,109 @@
       color: #6F6F6F;
     }
 
+    /* ---- THANK YOU PAGE ---- */
+    #thank-you-page {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+    }
+
+    .thank-you-content {
+      max-width: 520px;
+    }
+
+    .thank-you-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 32px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    .thank-you-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .thank-you-content h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 600;
+      color: #2B2B2B;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .thank-you-content h1 .green {
+      color: #6A912D;
+    }
+
+    .thank-you-content p {
+      font-size: 17px;
+      color: #6F6F6F;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+
+    .thank-you-back {
+      display: inline-block;
+      padding: 14px 32px;
+      background: transparent;
+      color: #3B7A57;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 16px;
+      border: 2px solid #3B7A57;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .thank-you-notice {
+      background: rgba(106, 145, 45, 0.08);
+      border: 1.5px solid rgba(106, 145, 45, 0.3);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      text-align: left;
+    }
+
+    .thank-you-notice svg {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      stroke: #6A912D;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-top: 2px;
+    }
+
+    .thank-you-notice p {
+      font-size: 15px;
+      color: #2B2B2B;
+      line-height: 1.55;
+      margin-bottom: 0;
+    }
+
+    .thank-you-notice p strong {
+      font-weight: 600;
+    }
+
+    .thank-you-notice p span {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      color: #6F6F6F;
+    }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 600px) {
       .hero {
@@ -328,6 +431,8 @@
   </style>
 </head>
 <body>
+
+<div id="main-content">
 
   <!-- HERO -->
   <section class="hero">
@@ -429,6 +534,75 @@
   <footer>
     <p>&copy; 2026 Touch Grass. Made with 🌱 for people who need more sun.</p>
   </footer>
+
+</div><!-- /#main-content -->
+
+<!-- THANK YOU PAGE -->
+<div id="thank-you-page">
+  <div class="thank-you-content">
+    <div class="thank-you-icon">
+      <img src="resources/rounded_logo.svg" alt="Touch Grass logo" />
+    </div>
+    <h1>Check your inbox.</h1>
+    <div class="thank-you-notice">
+      <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+      <p>
+        <strong>Click the confirmation link in the email we just sent you.</strong>
+        <span>Without confirming, you won't receive any updates about Touch Grass.</span>
+      </p>
+    </div>
+    <p>Can't find it? Check your spam folder — it sometimes ends up there.</p>
+    <a href="#" class="thank-you-back" id="back-btn">Back to home</a>
+  </div>
+</div>
+
+<script>
+  const mainContent = document.getElementById('main-content');
+  const thankYouPage = document.getElementById('thank-you-page');
+  const backBtn = document.getElementById('back-btn');
+
+  function showThankYou() {
+    mainContent.style.display = 'none';
+    thankYouPage.style.display = 'flex';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function showMain() {
+    thankYouPage.style.display = 'none';
+    mainContent.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function applyRoute() {
+    if (window.location.hash === '#thank-you') {
+      showThankYou();
+    } else {
+      showMain();
+    }
+  }
+
+  // Handle hash changes (back/forward buttons)
+  window.addEventListener('hashchange', applyRoute);
+
+  // Apply on initial load
+  applyRoute();
+
+  // Watch for Kit form success message appearing
+  const observer = new MutationObserver(() => {
+    const successAlert = document.querySelector('.formkit-alert-success');
+    if (successAlert && successAlert.textContent.trim()) {
+      observer.disconnect();
+      window.location.hash = '#thank-you';
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+
+  backBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.hash = '';
+  });
+</script>
 
 </body>
 </html>
