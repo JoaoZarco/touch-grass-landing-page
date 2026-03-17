@@ -36,6 +36,29 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    .platform-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(106, 145, 45, 0.1);
+      color: #6A912D;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+
+    .platform-chip svg {
+      width: 13px;
+      height: 13px;
+      stroke: #6A912D;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     /* ---- HERO ---- */
     .hero {
       min-height: 100vh;
@@ -440,8 +463,12 @@
       <div class="hero-icon">
         <img src="resources/rounded_logo.svg" alt="Touch Grass logo" />
       </div>
-      <h1>It's time to<br /><span class="green">touch grass.</span></h1>
-      <p>Track your outdoor time, get gentle nudges to step outside, and build a healthier, less sedentary routine — one walk at a time.</p>
+      <div class="platform-chip">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.5"/></svg>
+        iPhone & Android — coming soon
+      </div>
+      <h1>Less screen.<br /><span class="green">More green.</span></h1>
+      <p>Touch Grass is an app that tracks your outdoor time, sends gentle nudges to step outside, and helps you build a healthier routine — one walk at a time.</p>
       <a href="#signup" class="hero-cta">Join the Waitlist</a>
       <a href="#features" class="scroll-hint">
         <span>Learn more</span>
